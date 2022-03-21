@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Getter
@@ -30,7 +31,7 @@ public class Recipe
   private Notes notes;
 
   @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe") //relationship owner
-  private Set<Ingredient> ingredients;
+  private Set<Ingredient> ingredients = new HashSet<>();
 
   @Enumerated(value = EnumType.STRING) //store String value in the database
   private Difficulty difficulty;
@@ -39,5 +40,5 @@ public class Recipe
   @JoinTable(name = "recipe_category",
       joinColumns = @JoinColumn(name = "recipe_id"),
       inverseJoinColumns = @JoinColumn(name = "category_id"))
-  private Set<Category> categories;
+  private Set<Category> categories = new HashSet<>();
 }
